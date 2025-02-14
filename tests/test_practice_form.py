@@ -22,7 +22,7 @@ def test_validate_registration_form():
     browser.element('#city').click().element('#react-select-4-option-1').click()
     browser.element('#submit').click()
     browser.element('#example-modal-sizes-title-lg').should(have.exact_text('Thanks for submitting the form'))
-    expected_values = ['Ivan Ivanov', 'test@test.com', 'Male', '7911111111', '11 December,2011', 'Maths', 'Sports', 'avatar.png',
-                       'Pushkina street, Kolotushkina house', 'Haryana Panipat']
-    browser.all("//div[@class='table-responsive']//td[2]").should(have.exact_texts(expected_values))
+    browser.all("//div[@class='table-responsive']//td[2]").should(
+        have.exact_texts('Ivan Ivanov', 'test@test.com', 'Male', '7911111111', '11 December,2011', 'Maths', 'Sports', 'avatar.png',
+                         'Pushkina street, Kolotushkina house', 'Haryana Panipat'))
     browser.element('#closeLargeModal').should(be.clickable).click()
