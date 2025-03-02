@@ -64,6 +64,3 @@ class RegistrationPage:
 
     def should_thanks_message(self):
         browser.element('#example-modal-sizes-title-lg').should(have.exact_text('Thanks for submitting the form'))
-
-
-
