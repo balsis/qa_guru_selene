@@ -12,10 +12,9 @@ def remote_browser():
     options.add_argument("--window-size=1920,1080")
     options.add_argument('--headless')
     browser.config.base_url = 'https://demoqa.com'
-    browser.config.driver_options = options
     selenoid_capabilities = {
         "browserName": "chrome",
-        "browserVersion": "110.0",
+        "browserVersion": "100.0",
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True
@@ -25,9 +24,10 @@ def remote_browser():
     browser.config.driver = webdriver.Remote(
         command_executor = f"https://{SelenoidData.SELENOID_LOGIN}:{SelenoidData.SELENOID_PASS}@{SelenoidData.SELENOID_URL}/wd/hub",
         options = options)
+    browser.config.driver_options = options
     yield
-    attach.add_screenshot()
-    attach.add_html()
-    attach.add_logs()
-    attach.add_video()
+    attach.add_screenshot(browser)
+    attach.add_html(browser)
+    attach.add_logs(browser)
+    attach.add_video(browser)
     browser.quit()
