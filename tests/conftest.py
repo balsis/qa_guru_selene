@@ -6,7 +6,7 @@ from helpers import attach
 
 
 @pytest.fixture(scope = 'function', autouse = True)
-def remote_browser():
+def remote_browser(request):
     options = webdriver.ChromeOptions()
     options.page_load_strategy = 'eager'
     options.add_argument("--window-size=1920,1080")
@@ -25,7 +25,7 @@ def remote_browser():
         command_executor = f"https://{SelenoidData.SELENOID_LOGIN}:{SelenoidData.SELENOID_PASS}@{SelenoidData.SELENOID_URL}/wd/hub",
         options = options)
     browser.config.driver_options = options
-    yield
+    yield browser
     attach.add_screenshot(browser)
     attach.add_html(browser)
     attach.add_logs(browser)
