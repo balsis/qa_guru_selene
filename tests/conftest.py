@@ -15,7 +15,7 @@ def remote_browser():
     browser.config.driver_options = options
     selenoid_capabilities = {
         "browserName": "chrome",
-        "browserVersion": "125.0",
+        "browserVersion": "110.0",
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True
