@@ -18,7 +18,7 @@ def remote_browser():
         "browserVersion": "125.0",
         "selenoid:options": {
             "enableVNC": True,
-            "enableVideo": False
+            "enableVideo": True
         }
     }
     options.capabilities.update(selenoid_capabilities)
