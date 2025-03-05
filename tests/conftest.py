@@ -1,7 +1,7 @@
 import pytest
 from selene import browser
 from selenium import webdriver
-
+from data.data import SelenoidData
 
 @pytest.fixture(scope = "function", autouse = False)
 def local_browser():
@@ -33,7 +33,7 @@ def remote_browser():
     }
     options.capabilities.update(selenoid_capabilities)
     browser.config.driver = webdriver.Remote(
-        command_executor = f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        command_executor = f"https://{SelenoidData.SELENOID_LOGIN}:{SelenoidData.SELENOID_PASS}@{SelenoidData.SELENOID_URL}",
         options = options)
     yield
     browser.quit()
