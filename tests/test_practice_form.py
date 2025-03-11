@@ -3,6 +3,7 @@ import allure
 from pages.registration_page import RegistrationPage
 
 
+@allure.parent_suite("demoqa.com")
 @allure.feature("Форма регистрации")
 @allure.story("Проверка успешного заполнения формы регистрации")
 @allure.suite("Форма регистрации")
