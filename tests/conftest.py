@@ -5,8 +5,16 @@ from data.data import SelenoidData
 from helpers import attach
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        '--browser_version', help='Выберите версию браузера',
+        default='100.0'
+    )
+
+
 @pytest.fixture(scope = 'function', autouse = True)
 def remote_browser(request):
+    browser_version = request.config.getoption('--browser_version')
     options = webdriver.ChromeOptions()
     browser.config.driver_options = options
     browser.config.base_url = 'https://demoqa.com'
@@ -14,7 +22,7 @@ def remote_browser(request):
     browser.config.window_height = 1080
     selenoid_capabilities = {
         "browserName": "chrome",
-        "browserVersion": "125.0",
+        "browserVersion": browser_version,
         "selenoid:options": {
             "enableVNC": True,
             "enableVideo": True
