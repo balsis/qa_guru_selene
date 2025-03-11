@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selene import browser
 from selenium import webdriver
@@ -15,24 +16,25 @@ def pytest_addoption(parser):
 @pytest.fixture(scope = 'function', autouse = True)
 def remote_browser(request):
     browser_version = request.config.getoption('--browser_version')
-    options = webdriver.ChromeOptions()
-    browser.config.driver_options = options
-    browser.config.base_url = 'https://demoqa.com'
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
-    selenoid_capabilities = {
-        "browserName": "chrome",
-        "browserVersion": browser_version,
-        "selenoid:options": {
-            "enableVNC": True,
-            "enableVideo": True
+    with allure.step(f"Инициализация браузера Chrome с версией {browser_version}"):
+        options = webdriver.ChromeOptions()
+        browser.config.driver_options = options
+        browser.config.base_url = 'https://demoqa.com'
+        browser.config.window_width = 1920
+        browser.config.window_height = 1080
+        selenoid_capabilities = {
+            "browserName": "chrome",
+            "browserVersion": browser_version,
+            "selenoid:options": {
+                "enableVNC": True,
+                "enableVideo": True
+            }
         }
-    }
-    options.page_load_strategy = 'eager'
-    options.capabilities.update(selenoid_capabilities)
-    browser.config.driver = webdriver.Remote(
-        command_executor = f"https://{SelenoidData.SELENOID_LOGIN}:{SelenoidData.SELENOID_PASS}@{SelenoidData.SELENOID_URL}/wd/hub",
-        options = options)
+        options.page_load_strategy = 'eager'
+        options.capabilities.update(selenoid_capabilities)
+        browser.config.driver = webdriver.Remote(
+            command_executor = f"https://{SelenoidData.SELENOID_LOGIN}:{SelenoidData.SELENOID_PASS}@{SelenoidData.SELENOID_URL}/wd/hub",
+            options = options)
     yield browser
     attach.add_screenshot(browser)
     attach.add_html(browser)
