@@ -74,7 +74,7 @@ class RegistrationPage:
 
     @allure.step("Проверка, что кнопка закрытия кликабельна")
     def close_button_should_be_clickable(self):
-        browser.element('#closeLargeModal').should(be.clickable).click()
+        browser.element('#closeLargeModal').should(be.clickable)
 
     @allure.step("Проверка  сообщения об успешной отправке формы")
     def should_thanks_message(self):
